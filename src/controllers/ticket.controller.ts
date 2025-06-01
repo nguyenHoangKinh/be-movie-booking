@@ -8,7 +8,13 @@ export const getAllTickets = async (req: Request, res: Response) => {
 };
 
 export const getTicketById = async (req: Request, res: Response) => {
-  const ticket = await Ticket.findById(req.params.id);
-  if (!ticket) return res.status(404).json({ message: 'Ticket not found' });
-  res.json(ticket);
+  try {
+    const { id } = req.params;
+    // giả sử bạn lấy từ DB
+    const ticket = { id, name: 'Test Ticket' };
+    res.status(200).json(ticket);
+  } catch {
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
 };
+

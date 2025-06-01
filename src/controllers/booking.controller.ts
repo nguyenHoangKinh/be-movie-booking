@@ -5,7 +5,7 @@ import Ticket from '../models/ticket.model';
 
 export const createBooking = async (req: Request, res: Response) => {
   const { ticketId, quantity } = req.body;
-  const userId = req.user.id; // cần middleware auth
+  const userId = req.user!.id; // cần middleware auth
 
   const ticket = await Ticket.findById(ticketId);
   if (!ticket) return res.status(404).json({ message: 'Ticket not found' });
@@ -28,7 +28,7 @@ export const createBooking = async (req: Request, res: Response) => {
 };
 
 export const getMyBookings = async (req: Request, res: Response) => {
-  const userId = req.user.id;
+  const userId = req.user!.id;
   const bookings = await Booking.find({ user: userId }).populate('ticket');
   res.json(bookings);
 };

@@ -22,7 +22,7 @@ export const authenticate = (
     const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secret_key') as JwtPayload;
     req.user = { id: decoded.userId };
     next();
-  } catch (_e) {
+  } catch {
     return res.status(401).json({ message: 'Invalid token' });
   }
 };
